@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -7,23 +7,38 @@
 }
 
 main {
-  height: 100vh;
-  width: 100vw;
-  background-color: #0d1b2a;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .box {
-  font-size: 24px;
-  width: 100%;
-  height: 100%;
-  word-wrap: break-word;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0d1b2a;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 14px;
   color: #133355;
   overflow: hidden;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
+  display: grid;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid__top {
+  align-self: center;
+}
+
+.grid__middle {
+  display: flex;
 }
 
 .overlay {
+  display: none;
   position: absolute;
   height: 100vh;
   width: 100vw;
