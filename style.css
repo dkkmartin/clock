@@ -12,29 +12,18 @@ main {
 
 .box {
   height: 100vh;
-  width: 100vw;
   background-color: #0d1b2a;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-size: 14px;
   color: #133355;
-  overflow: hidden;
-  padding: 0 0.5rem;
-  display: grid;
   line-height: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.grid__top {
-  align-self: center;
-}
-
-.grid__middle {
-  display: flex;
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(12px, 14px));
+  justify-items: center;
 }
 
 .overlay {
@@ -44,13 +33,4 @@ main {
   width: 100vw;
   background: rgb(0, 0, 0);
   background: radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgb(0, 0, 0) 100%);
-}
-
-.clock {
-  color: white;
-  position: absolute;
-  right: 50%;
-  top: 50%;
-  transform: translate(50%);
-  font-size: 50px;
 }

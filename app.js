@@ -1,622 +1,90 @@
 const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const box = document.querySelector('.box');
-const clockDiv = document.querySelector('.clock');
-let numberPosArray = [
-  // Dots
-  [
-    '13212',
-    '13213',
-    '13215',
-    '13214',
-    '13216',
-    '13004',
-    '13003',
-    '13002',
-    '13001',
-    '13000',
-    '12788',
-    '12789',
-    '12790',
-    '12791',
-    '12792',
-    '12580',
-    '12579',
-    '12578',
-    '12577',
-    '12576',
-    '7280',
-    '7492',
-    '7704',
-    '7701',
-    '7489',
-    '7277',
-    '7278',
-    '7279',
-    '7491',
-    '7490',
-    '7702',
-    '7703',
-    '7276',
-    '7488',
-    '7700',
-    '7064',
-    '7065',
-    '7066',
-    '7067',
-    '7068',
-  ],
-  // The number 1
-  [
-    4259, 4258, 4471, 4683, 4895, 4894, 4682, 4470, 4257, 4469, 4681, 4893, 4892, 4680, 4468, 4256,
-    4260, 4261, 4262, 4263, 4472, 4473, 4474, 4475, 4684, 4685, 4686, 4687, 4896, 4897, 4898, 4899,
-    5108, 5109, 5110, 5111, 5320, 5321, 5322, 5323, 5532, 5533, 5534, 5535, 5744, 5745, 5746, 5747,
-    5956, 5957, 5958, 5959, 6168, 6169, 6170, 6171, 6380, 6381, 6382, 6383, 6592, 6593, 6594, 6595,
-    6804, 6805, 6806, 6807, 7016, 7017, 7018, 7019, 7228, 7229, 7230, 7231, 7440, 7441, 7442, 7443,
-    7652, 7653, 7654, 7655, 7864, 7865, 7866, 7867, 8076, 8077, 8078, 8079, 8288, 8289, 8290, 8291,
-    8500, 8501, 8502, 8503, 8712, 8713, 8714, 8715, 8924, 8925, 8926, 8927, 9136, 9137, 9138, 9139,
-    9348, 9349, 9350, 9351, 9560, 9561, 9562, 9563, 9772, 9773, 9774, 9775, 9984, 9985, 9986, 9987,
-    10196, 10197, 10198, 10199, 10408, 10409, 10410, 10411, 10620, 10621, 10622, 10623, 10832,
-    10833, 10834, 10835, 11044, 11045, 11046, 11047, 11256, 11257, 11258, 11259, 11468, 11469,
-    11470, 11471, 11680, 11681, 11682, 11683, 11892, 11893, 11894, 11895, 12104, 12105, 12106,
-    12107, 12316, 12317, 12318, 12319, 12528, 12529, 12530, 12531, 12740, 12741, 12742, 12743,
-    12952, 12953, 12954, 12955, 13164, 13165, 13166, 13167, 13376, 13377, 13378, 13379, 13588,
-    13589, 13590, 13591, 13800, 13801, 13802, 13803, 14012, 14013, 14014, 14015, 14224, 14225,
-    14226, 14227, 14436, 14437, 14438, 14439, 14648, 14649, 14650, 14651, 14860, 14861, 14862,
-    14863, 15072, 15073, 15074, 15075, 15284, 15285, 15286, 15287,
-  ],
-  // The number 2
-  [
-    '4906',
-    '4694',
-    '4482',
-    '4270',
-    '4271',
-    '4695',
-    '4483',
-    '4907',
-    '4908',
-    '4696',
-    '4484',
-    '4272',
-    '4273',
-    '4485',
-    '4697',
-    '4909',
-    '4910',
-    '4698',
-    '4486',
-    '4274',
-    '4275',
-    '4487',
-    '4699',
-    '4911',
-    '4912',
-    '4700',
-    '4488',
-    '4276',
-    '4277',
-    '4913',
-    '4701',
-    '4489',
-    '4278',
-    '4490',
-    '4702',
-    '4914',
-    '4915',
-    '4703',
-    '4491',
-    '4279',
-    '4280',
-    '4492',
-    '4704',
-    '4916',
-    '4917',
-    '4705',
-    '4493',
-    '4281',
-    '4282',
-    '4494',
-    '4706',
-    '4918',
-    '4919',
-    '4707',
-    '4495',
-    '4283',
-    '4284',
-    '4496',
-    '4708',
-    '4920',
-    '4921',
-    '4709',
-    '4497',
-    '4285',
-    '4286',
-    '4498',
-    '4710',
-    '4922',
-    '4923',
-    '4711',
-    '4499',
-    '4287',
-    '4288',
-    '4500',
-    '4712',
-    '4924',
-    '4925',
-    '4713',
-    '4289',
-    '4501',
-    '4926',
-    '4714',
-    '4502',
-    '4290',
-    '4927',
-    '4928',
-    '4929',
-    '4930',
-    '5142',
-    '5141',
-    '5140',
-    '5139',
-    '4715',
-    '4716',
-    '4717',
-    '4718',
-    '4506',
-    '4505',
-    '4504',
-    '4503',
-    '4291',
-    '4292',
-    '4293',
-    '4294',
-    '5351',
-    '5352',
-    '5353',
-    '5354',
-    '5566',
-    '5565',
-    '5564',
-    '5563',
-    '5775',
-    '5776',
-    '5777',
-    '5778',
-    '5990',
-    '5989',
-    '5988',
-    '5987',
-    '6200',
-    '6199',
-    '6201',
-    '6202',
-    '6414',
-    '6413',
-    '6412',
-    '6411',
-    '6623',
-    '6624',
-    '6625',
-    '6626',
-    '6838',
-    '6837',
-    '6836',
-    '6835',
-    '7047',
-    '7048',
-    '7049',
-    '7050',
-    '7262',
-    '7261',
-    '7260',
-    '7259',
-    '7471',
-    '7472',
-    '7473',
-    '7474',
-    '7686',
-    '7685',
-    '7684',
-    '7683',
-    '7895',
-    '7896',
-    '7897',
-    '7898',
-    '8110',
-    '8109',
-    '8108',
-    '8107',
-    '8319',
-    '8320',
-    '8321',
-    '8322',
-    '8534',
-    '8533',
-    '8532',
-    '8531',
-    '8746',
-    '8745',
-    '8744',
-    '8743',
-    '8958',
-    '8957',
-    '8956',
-    '8955',
-    '9170',
-    '9169',
-    '9168',
-    '9167',
-    '9382',
-    '9381',
-    '9380',
-    '9379',
-    '9594',
-    '9806',
-    '10018',
-    '10230',
-    '10229',
-    '10017',
-    '9805',
-    '9593',
-    '9592',
-    '9804',
-    '10016',
-    '10228',
-    '10227',
-    '10015',
-    '9803',
-    '9591',
-    '9802',
-    '9590',
-    '10014',
-    '10226',
-    '10225',
-    '10013',
-    '9801',
-    '9589',
-    '9588',
-    '9800',
-    '10012',
-    '10224',
-    '10223',
-    '10011',
-    '9586',
-    '9587',
-    '9798',
-    '10010',
-    '10222',
-    '10221',
-    '10009',
-    '9797',
-    '9585',
-    '9583',
-    '9584',
-    '9796',
-    '9795',
-    '10007',
-    '10008',
-    '10220',
-    '10219',
-    '9799',
-    '10218',
-    '10006',
-    '9794',
-    '9582',
-    '9580',
-    '9581',
-    '9793',
-    '9792',
-    '10005',
-    '10004',
-    '10217',
-    '10216',
-    '10215',
-    '10003',
-    '9791',
-    '9579',
-    '9578',
-    '10002',
-    '9790',
-    '10214',
-    '10213',
-    '10001',
-    '9789',
-    '9577',
-    '10212',
-    '10000',
-    '9788',
-    '9576',
-    '9575',
-    '9787',
-    '9999',
-    '10211',
-    '10210',
-    '9998',
-    '9786',
-    '9574',
-    '9573',
-    '9785',
-    '9997',
-    '10209',
-    '10208',
-    '9996',
-    '9784',
-    '9572',
-    '9571',
-    '9783',
-    '9995',
-    '10207',
-    '9570',
-    '9782',
-    '9994',
-    '10206',
-    '10418',
-    '10419',
-    '10420',
-    '10421',
-    '10633',
-    '10632',
-    '10631',
-    '10630',
-    '10842',
-    '10843',
-    '10844',
-    '10845',
-    '11057',
-    '11269',
-    '11268',
-    '11056',
-    '11055',
-    '11267',
-    '11266',
-    '11054',
-    '11478',
-    '11479',
-    '11480',
-    '11481',
-    '11693',
-    '11692',
-    '11691',
-    '11690',
-    '11902',
-    '11903',
-    '11904',
-    '11905',
-    '12114',
-    '12115',
-    '12117',
-    '12116',
-    '12329',
-    '12328',
-    '12327',
-    '12326',
-    '12538',
-    '12539',
-    '12540',
-    '12541',
-    '12753',
-    '12752',
-    '12751',
-    '12750',
-    '12962',
-    '12963',
-    '12964',
-    '12965',
-    '13177',
-    '13176',
-    '13175',
-    '13174',
-    '13386',
-    '13387',
-    '13388',
-    '13389',
-    '13601',
-    '13600',
-    '13599',
-    '13598',
-    '13810',
-    '13811',
-    '13812',
-    '13813',
-    '14025',
-    '14237',
-    '14449',
-    '14661',
-    '14873',
-    '15085',
-    '15297',
-    '15296',
-    '15295',
-    '15294',
-    '15082',
-    '14658',
-    '14446',
-    '14234',
-    '14022',
-    '14023',
-    '14024',
-    '14236',
-    '14235',
-    '14448',
-    '14447',
-    '14660',
-    '14659',
-    '14872',
-    '14871',
-    '14870',
-    '15083',
-    '15084',
-    '15298',
-    '15086',
-    '14874',
-    '14662',
-    '14663',
-    '14875',
-    '15087',
-    '15299',
-    '15300',
-    '15088',
-    '14876',
-    '14664',
-    '14665',
-    '14877',
-    '15089',
-    '15301',
-    '15302',
-    '15090',
-    '14666',
-    '14667',
-    '15091',
-    '15303',
-    '15304',
-    '15092',
-    '14878',
-    '14879',
-    '14880',
-    '14668',
-    '14669',
-    '14881',
-    '15093',
-    '15305',
-    '15306',
-    '15094',
-    '14671',
-    '14670',
-    '14882',
-    '14883',
-    '15095',
-    '15307',
-    '15308',
-    '15096',
-    '14884',
-    '14672',
-    '14673',
-    '14885',
-    '15097',
-    '15309',
-    '15310',
-    '15098',
-    '14886',
-    '14674',
-    '14675',
-    '14887',
-    '15099',
-    '15311',
-    '15312',
-    '15100',
-    '14888',
-    '14676',
-    '14677',
-    '14678',
-    '14679',
-    '14682',
-    '14681',
-    '14680',
-    '14889',
-    '14890',
-    '14891',
-    '14892',
-    '14893',
-    '14894',
-    '15106',
-    '15105',
-    '15104',
-    '15103',
-    '15102',
-    '15101',
-    '15313',
-    '15314',
-    '15315',
-    '15316',
-    '15317',
-    '15318',
-  ],
-];
-const screenResolution = {
-  width: window.screen.width,
-  height: window.screen.height,
-};
-let gridArrayTop,
-  gridArrayBot,
-  GridArrayMiddle1,
-  GridArrayMiddle2,
-  GridArrayMiddle3,
-  GridArrayMiddle4,
-  GridArrayMiddle5,
-  GridArrayMiddle6,
-  GridArrayMiddle7,
-  GridArrayMiddle8;
+let gridArray = [];
 
 let numreDuSkalBrugeNu = [];
 
-window.addEventListener('click', (e) => {
-  const dataIndex = e.target.dataset.index;
-  const targetText = e.target.textContent;
+// window.addEventListener('click', (e) => {
+//   const dataIndex = e.target.dataset.index;
+//   const targetText = e.target.textContent;
 
-  if (!numreDuSkalBrugeNu.includes(dataIndex)) {
-    // Add the item to the array and change the color
-    numreDuSkalBrugeNu.push(dataIndex);
-    e.target.style.color = 'white';
-  } else if (numreDuSkalBrugeNu.includes(dataIndex)) {
-    // Remove the item from the array and reset the color
-    const indexToRemove = numreDuSkalBrugeNu.indexOf(dataIndex);
-    numreDuSkalBrugeNu.splice(indexToRemove, 1);
-    e.target.style.color = 'inherit';
-  } else if (numreDuSkalBrugeNu.includes(targetText)) {
-    // Check if the target text is in the array and remove it
-    const indexToRemove = numreDuSkalBrugeNu.indexOf(targetText);
-    numreDuSkalBrugeNu.splice(indexToRemove, 1);
-    e.target.style.color = 'inherit';
+//   if (!numreDuSkalBrugeNu.includes(dataIndex)) {
+//     // Add the item to the array and change the color
+//     numreDuSkalBrugeNu.push(dataIndex);
+//     e.target.style.color = 'white';
+//   } else if (numreDuSkalBrugeNu.includes(dataIndex)) {
+//     // Remove the item from the array and reset the color
+//     const indexToRemove = numreDuSkalBrugeNu.indexOf(dataIndex);
+//     numreDuSkalBrugeNu.splice(indexToRemove, 1);
+//     e.target.style.color = 'inherit';
+//   } else if (numreDuSkalBrugeNu.includes(targetText)) {
+//     // Check if the target text is in the array and remove it
+//     const indexToRemove = numreDuSkalBrugeNu.indexOf(targetText);
+//     numreDuSkalBrugeNu.splice(indexToRemove, 1);
+//     e.target.style.color = 'inherit';
+//   }
+
+//   console.log(numreDuSkalBrugeNu);
+// });
+
+function fillArrayWithArrays() {
+  for (let i = 0; i < 76; i++) {
+    gridArray.push([]);
   }
-
-  console.log(numreDuSkalBrugeNu);
-});
-
-function middleGridDivMaker() {
-  const newDiv = document.createElement('div');
-  
 }
+
+fillArrayWithArrays();
+gridArrayFiller();
+arrayToScreen();
+gridPosColorHandler();
 
 function randomChar() {
   const randomInt = Math.floor(Math.random() * chars.length);
   return chars[randomInt];
 }
 
-function gridHandler() {
-  gridArrayTop = [];
-  for (let i = 0; i < 10000; i++) {
-    gridArrayTop.push(randomChar());
-  }
+function gridArrayFiller() {
+  gridArray.forEach((array) => {
+    for (let i = 0; i < 182; i++) {
+      array.push(randomChar());
+    }
+  });
 }
 
-function gridPrinter() {
-  box.innerHTML = '';
-  for (let x = 0; x < gridArrayTop.length; x++) {
-    const newSpan = document.createElement('span');
-    newSpan.dataset.index = `${x}`;
-    newSpan.innerHTML = gridArrayTop[x];
-    box.appendChild(newSpan);
-  }
+function arrayToScreen() {
+  gridArray.forEach((array, index) => {
+    for (let i = 0; i < array.length; i++) {
+      const newSpan = document.createElement('span');
+      newSpan.dataset.index = `${i}`;
+      newSpan.dataset.array = `${index}`;
+      newSpan.textContent = array[i];
+      box.appendChild(newSpan);
+    }
+  });
 }
 
 function gridPosColorHandler() {
+  const numberPosArray = [
+    [
+      [20, 5],
+      [20, 6],
+      [20, 7],
+      [20, 8],
+      [21, 5],
+      [22, 5],
+      [23, 5],
+    ]
+  ];
+
   numberPosArray[0].forEach((pos) => {
-    let i = document.querySelector(`[data-index="${pos}"]`);
-    i.textContent = 'O';
-    i.style.color = 'white';
+    const [arrayValue, indexValue] = pos;
+    let element = document.querySelector(
+      `[data-index="${indexValue}"][data-array="${arrayValue}"]`
+    );
+    element.textContent = 1;
+    element.style.color = 'white';
   });
-
-  numberPosArray[1].forEach((pos) => {
-    let i = document.querySelector(`[data-index="${pos}"]`);
-    i.textContent = 1;
-    i.style.color = 'white';
-  });
-
-  numberPosArray[2].forEach((pos) => {
-    let i = document.querySelector(`[data-index="${pos}"]`);
-    i.textContent = 2;
-    i.style.color = 'white';
-  });
+  
 }
 
 function playSound() {
