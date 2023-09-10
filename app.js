@@ -2811,7 +2811,7 @@ function timeToScreen(timeString) {
 }
 
 function playSound() {
-  const sound = new Audio('/assets/tick.mp3');
+  const sound = new Audio('./assets/tick.mp3');
   sound.play();
 }
 
