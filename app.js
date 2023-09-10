@@ -1,5 +1,3 @@
-const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-const box = document.querySelector('.box');
 const numberPosArray = [
   // Number zero
   [
@@ -2754,13 +2752,20 @@ const numberPosArray = [
     [42, 8],
   ],
 ];
+const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const box = document.querySelector('.box');
 let timeString;
-let gridArray = [];
 
 function fillArrayWithArrays() {
+  const gridArray = [];
   for (let i = 0; i < 76; i++) {
-    gridArray.push([]);
+    const row = [];
+    for (let j = 0; j < 182; j++) {
+      row.push(randomChar());
+    }
+    gridArray.push(row);
   }
+  return gridArray;
 }
 
 function randomChar() {
@@ -2768,605 +2773,30 @@ function randomChar() {
   return chars[randomInt];
 }
 
-function gridArrayFiller() {
-  gridArray.forEach((array) => {
-    for (let i = 0; i < 182; i++) {
-      array.push(randomChar());
-    }
-  });
+function arrayToScreen(gridArray) {
+  const html = gridArray.map((row, rowIndex) => {
+    return row.map((char, colIndex) => {
+      return `<span data-index="${colIndex}" data-array="${rowIndex}">${char}</span>`;
+    }).join('');
+  }).join('');
+  box.innerHTML = html;
 }
 
-function arrayToScreen() {
-  box.innerHTML = ''
-  gridArray.forEach((array, index) => {
-    for (let i = 0; i < array.length; i++) {
-      const newSpan = document.createElement('span');
-      newSpan.dataset.index = `${i}`;
-      newSpan.dataset.array = `${index}`;
-      newSpan.textContent = array[i];
-      box.appendChild(newSpan);
+function timeToScreen(timeString) {
+  for (let i = 0; i < timeString.length; i++) {
+    const char = timeString[i];
+    const digit = parseInt(char, 10);
+    if (!isNaN(digit)) {
+      numberPosArray[digit].forEach((pos) => {
+        const [arrayValue, indexValue] = pos;
+        const dataIndex = indexValue + i * 20;
+        const element = document.querySelector(
+          `[data-index="${dataIndex}"][data-array="${arrayValue}"]`
+        );
+        element.textContent = digit;
+        element.style.color = 'white';
+      });
     }
-  });
-  gridArray= []
-}
-
-function timeToScreen() {
-  switch (timeString[0]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
-  }
-
-  switch (timeString[1]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    case '3':
-      numberPosArray[3].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 3;
-        element.style.color = 'white';
-      });
-      break;
-    case '4':
-      numberPosArray[4].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 4;
-        element.style.color = 'white';
-      });
-      break;
-    case '5':
-      numberPosArray[5].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 5;
-        element.style.color = 'white';
-      });
-      break;
-    case '6':
-      numberPosArray[6].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 6;
-        element.style.color = 'white';
-      });
-      break;
-    case '7':
-      numberPosArray[7].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 7;
-        element.style.color = 'white';
-      });
-      break;
-    case '8':
-      numberPosArray[8].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 8;
-        element.style.color = 'white';
-      });
-      break;
-    case '9':
-      numberPosArray[9].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 10}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 9;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
-  }
-
-  numberPosArray[10].forEach((pos) => {
-    const [arrayValue, indexValue] = pos;
-    let element = document.querySelector(
-      `[data-index="${indexValue + 30}"][data-array="${arrayValue}"]`
-    );
-    element.textContent = 0;
-    element.style.color = 'white';
-  });
-
-  switch (timeString[3]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    case '3':
-      numberPosArray[3].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 3;
-        element.style.color = 'white';
-      });
-      break;
-    case '4':
-      numberPosArray[4].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 4;
-        element.style.color = 'white';
-      });
-      break;
-    case '5':
-      numberPosArray[5].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 5;
-        element.style.color = 'white';
-      });
-      break;
-    case '6':
-      numberPosArray[6].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 6;
-        element.style.color = 'white';
-      });
-      break;
-    case '7':
-      numberPosArray[7].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 7;
-        element.style.color = 'white';
-      });
-      break;
-    case '8':
-      numberPosArray[8].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 8;
-        element.style.color = 'white';
-      });
-      break;
-    case '9':
-      numberPosArray[9].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 36}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 9;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
-  }
-
-  switch (timeString[4]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    case '3':
-      numberPosArray[3].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 3;
-        element.style.color = 'white';
-      });
-      break;
-    case '4':
-      numberPosArray[4].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 4;
-        element.style.color = 'white';
-      });
-      break;
-    case '5':
-      numberPosArray[5].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 5;
-        element.style.color = 'white';
-      });
-      break;
-    case '6':
-      numberPosArray[6].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 6;
-        element.style.color = 'white';
-      });
-      break;
-    case '7':
-      numberPosArray[7].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 7;
-        element.style.color = 'white';
-      });
-      break;
-    case '8':
-      numberPosArray[8].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 8;
-        element.style.color = 'white';
-      });
-      break;
-    case '9':
-      numberPosArray[9].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 56}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 9;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
-  }
-
- numberPosArray[10].forEach((pos) => {
-    const [arrayValue, indexValue] = pos;
-    let element = document.querySelector(
-      `[data-index="${indexValue + 76}"][data-array="${arrayValue}"]`
-    );
-    element.textContent = 0;
-    element.style.color = 'white';
-  });
-
-  switch (timeString[6]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    case '3':
-      numberPosArray[3].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 3;
-        element.style.color = 'white';
-      });
-      break;
-    case '4':
-      numberPosArray[4].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 4;
-        element.style.color = 'white';
-      });
-      break;
-    case '5':
-      numberPosArray[5].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 5;
-        element.style.color = 'white';
-      });
-      break;
-    case '6':
-      numberPosArray[6].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 6;
-        element.style.color = 'white';
-      });
-      break;
-    case '7':
-      numberPosArray[7].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 7;
-        element.style.color = 'white';
-      });
-      break;
-    case '8':
-      numberPosArray[8].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 8;
-        element.style.color = 'white';
-      });
-      break;
-    case '9':
-      numberPosArray[9].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 82}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 9;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
-  }
-
-  switch (timeString[7]) {
-    case '0':
-      numberPosArray[0].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 0;
-        element.style.color = 'white';
-      });
-      break;
-    case '1':
-      numberPosArray[1].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 1;
-        element.style.color = 'white';
-      });
-      break;
-    case '2':
-      numberPosArray[2].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 2;
-        element.style.color = 'white';
-      });
-      break;
-    case '3':
-      numberPosArray[3].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 3;
-        element.style.color = 'white';
-      });
-      break;
-    case '4':
-      numberPosArray[4].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 4;
-        element.style.color = 'white';
-      });
-      break;
-    case '5':
-      numberPosArray[5].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 5;
-        element.style.color = 'white';
-      });
-      break;
-    case '6':
-      numberPosArray[6].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 6;
-        element.style.color = 'white';
-      });
-      break;
-    case '7':
-      numberPosArray[7].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 7;
-        element.style.color = 'white';
-      });
-      break;
-    case '8':
-      numberPosArray[8].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 8;
-        element.style.color = 'white';
-      });
-      break;
-    case '9':
-      numberPosArray[9].forEach((pos) => {
-        const [arrayValue, indexValue] = pos;
-        let element = document.querySelector(
-          `[data-index="${indexValue + 103}"][data-array="${arrayValue}"]`
-        );
-        element.textContent = 9;
-        element.style.color = 'white';
-      });
-      break;
-    default:
-      break;
   }
 }
 
@@ -3384,23 +2814,16 @@ function clock() {
 }
 
 function intervalHandler() {
-  const updateClockInterval = setInterval(() => {
-    fillArrayWithArrays();
-    gridArrayFiller();
-    arrayToScreen();
+  setInterval(() => {
+    const gridArray = fillArrayWithArrays();
+    arrayToScreen(gridArray);
     clock();
-    timeToScreen();
-  }, 1000);
-
-  const soundInterval = setInterval(() => {
+    timeToScreen(timeString);
     playSound();
-  }, 2000);
+  }, 1000);
 }
 
-fillArrayWithArrays();
-gridArrayFiller();
-arrayToScreen();
+arrayToScreen(fillArrayWithArrays());
 clock();
-timeToScreen();
-
-//intervalHandler();
+timeToScreen(timeString);
+intervalHandler();
