@@ -2789,13 +2789,23 @@ function timeToScreen(timeString) {
     if (!isNaN(digit)) {
       numberPosArray[digit].forEach((pos) => {
         const [arrayValue, indexValue] = pos;
-        const dataIndex = indexValue + i * 20;
+        const dataIndex = indexValue + i * 21;
         const element = document.querySelector(
           `[data-index="${dataIndex}"][data-array="${arrayValue}"]`
         );
         element.textContent = digit;
         element.style.color = 'white';
       });
+    } else {
+      numberPosArray[10].forEach((pos) => {
+        const [arrayValue, indexValue] = pos;
+        const dataIndex = indexValue + i * 23;
+        const element = document.querySelector(
+          `[data-index="${dataIndex}"][data-array="${arrayValue}"]`
+        );
+        element.textContent = 0;
+        element.style.color = 'white';
+      })
     }
   }
 }
