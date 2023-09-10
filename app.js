@@ -2829,11 +2829,14 @@ function intervalHandler() {
     arrayToScreen(gridArray);
     clock();
     timeToScreen(timeString);
-    playSound();
   }, 1000);
-}
 
-arrayToScreen(fillArrayWithArrays());
+  setInterval(() => {
+    playSound();
+  }, 2000);
+}
 clock();
+arrayToScreen(fillArrayWithArrays());
 timeToScreen(timeString);
+playSound()
 intervalHandler();
