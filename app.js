@@ -2810,11 +2810,6 @@ function timeToScreen(timeString) {
   }
 }
 
-function playSound() {
-  const sound = new Audio('./assets/tick.mp3');
-  sound.play();
-}
-
 function clock() {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, '0');
@@ -2830,13 +2825,8 @@ function intervalHandler() {
     clock();
     timeToScreen(timeString);
   }, 1000);
-
-  setInterval(() => {
-    playSound();
-  }, 2000);
 }
 clock();
 arrayToScreen(fillArrayWithArrays());
 timeToScreen(timeString);
-playSound()
 intervalHandler();
