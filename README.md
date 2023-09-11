@@ -4,6 +4,9 @@
 
 **A clock made out of characters on the screen.**
 
-For now only works on a screen with a height of 1440px and width of 2560px
+For now only works on these screen widths:
 
-[Live demo](https://dkkmartin.github.io/clock/)
+- 1920
+- 2560
+
+##[Live demo](https://dkkmartin.github.io/clock/)
